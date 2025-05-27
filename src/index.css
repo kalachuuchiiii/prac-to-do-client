@@ -1,0 +1,14 @@
+.gloock-regular {
+  font-family: "Gloock", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.bg {
+  background-image: url("/kikiBG.jpg");
+}
+
+.paper-bg{
+  background-image: url("/paperBG.jpeg");
+}
