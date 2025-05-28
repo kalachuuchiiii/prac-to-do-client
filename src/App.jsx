@@ -7,16 +7,17 @@ import SearchBar from './components/searchBar.jsx';
 import kikiText from '/kikiFont.png'
 import CreateTask from './pages/createTask.jsx';
 import Homepage from './pages/homepage.jsx';
+import SearchResults from './pages/searchQuery.jsx';
 import { Routes, Route, Outlet, NavLink } from 'react-router-dom';
 
 function App() {
 
 
   return <div className = "flex flex-col items-center">
-          <div className = "w-full flex justify-between items-center text-left">
+          <NavLink to = "/" className = "w-full flex justify-between items-center text-left">
         <img className="w-50 object-cover" src={kikiText} />
         <NavLink to = "/create" className = "p-4 underline text-gray-900">Create</NavLink>
-      </div>
+      </NavLink>
     <Routes>
       <Route element={<div className="flex flex-col items-center w-full">
 
@@ -24,8 +25,10 @@ function App() {
         <Outlet />
       </div>}>
         <Route path="/" element={<Homepage />} />
+         <Route path="/search/" element={<SearchResults/>} />
       </Route>
       <Route path="/create" element={<CreateTask />} />
+     
     </Routes>
   </div>
 }

@@ -34,7 +34,7 @@ const Homepage = () => {
 
   return <div className="w-full flex flex-col justify-center items-center gap-3 pb-8">
     <TaskList list={pinnedTasks} label = "Pinned Tasks"/>
-    <TaskList list={tasks} />
+    <TaskList loading = {loading} list={tasks} />
   </div>
 
 }
