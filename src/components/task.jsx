@@ -42,7 +42,7 @@ return <div className = "grid ">
   <div className = {`grid row-start-1 col-start-1 grid-cols grid-cols-4 p-3 border-b-1 border-b-green-100 bg-gradient-to-r transition-colors duration-200 w-full ${status === "Complete" ? " from-black/80 to-black/30" : "from-transparent to-transparent"}`}>
       <div className = "col-span-3">
         <p className = "truncate">{task.task}</p>
-        <p className = "text-xs  text-black/50">{`${months[month]} ${date}, ${year}`}</p>
+        <p className = "text-xs  text-black/50">{`${months[month - 1]} ${date}, ${year}`}</p>
       </div>
       <button className = "col-span-1 flex justify-center ">
               <CircleButton disabled = {isServerBusy} isOn = {status === "Complete"} setIsOn = {handleChange} />
