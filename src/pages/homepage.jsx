@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Task from '../components/task.jsx';
 import { NavLink } from 'react-router-dom';
 import { setTasks, setPinnedTasks } from '../state/taskSlice.js';
@@ -42,15 +42,14 @@ const Homepage = () => {
     }
   }
 
-  useLayoutEffect(() => {
-    if(loading)return;
+  useEffect(() => {
       if(isCompleteHidden){
         hideCompletedTasks(); 
         return;
       }else{
         getTasks();
       }
-  }, [isCompleteHidden])
+  }, [isCompleteHidden, dispatch])
 
   return <div className="w-full flex flex-col justify-center items-center  pb-8">
     <CircleButton disabled ={loading} isOn = {isCompleteHidden} setIsOn = {handleChange} label = "Hide comepleted tasks"/>
