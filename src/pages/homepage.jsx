@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import Task from '../components/task.jsx';
 import { NavLink } from 'react-router-dom';
 import { setTasks, setPinnedTasks } from '../state/taskSlice.js';
@@ -11,7 +11,7 @@ const Homepage = () => {
   const [loading, setLoading] = useState(false);
   const [isCompleteHidden, setIsCompleteHidden] = useState(JSON.parse(localStorage.getItem("Complete-Hidden")));
   const dispatch = useDispatch();
-  const { fetch, fetchIncomplete} = useTaskMethod();
+  const { fetch, fetchIncomplete } = useTaskMethod();
 
   const getTasks = async () => {
     try {
@@ -42,7 +42,7 @@ const Homepage = () => {
     }
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
       if(isCompleteHidden){
         hideCompletedTasks(); 
         return;
