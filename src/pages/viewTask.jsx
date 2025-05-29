@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { months } from '../data/data.js';
 import { useParams, useNavigate } from 'react-router-dom';
+import LoadingIcon from '../components/loadingIcon.jsx';
 
 import { useTaskMethod } from '../utils/taskController.js';
 
@@ -47,7 +48,7 @@ const ViewTask = () => {
   }, [id]);
 
   if (!isServerSideOK) {
-    return <></>
+    return <LoadingIcon/>
   }
 
   const handleRemove = async (data) => {

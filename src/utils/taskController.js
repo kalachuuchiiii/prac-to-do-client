@@ -22,7 +22,13 @@ const fetchTasks = async() => {
     await fetchAPI("patch", "update-task", { update: {pin:true}, 
       _id: task._id
     })
-    fetchTasks()
+    const isCompleteHidden = JSON.parse(localStorage.getItem("Complete-Hidden")); 
+    if(isCompleteHidden){
+      fetchIncomplete()
+      return;
+    }else{
+      fetchTasks()
+    }
   }
   
   const handleUnpinTask = async(task) => {
@@ -30,12 +36,24 @@ const fetchTasks = async() => {
     await fetchAPI("patch", "update-task", { update: {pin:false}, 
       _id: task._id
     })
-    fetchTasks();
+    const isCompleteHidden = JSON.parse(localStorage.getItem("Complete-Hidden")); 
+    if(isCompleteHidden){
+      fetchIncomplete()
+      return;
+    }else{
+      fetchTasks()
+    }
   }
   
   const handleRemoveTask = async(task) => {
     await fetchAPI("delete", `delete-task/${task._id}`, {})
-    fetchTasks();
+    const isCompleteHidden = JSON.parse(localStorage.getItem("Complete-Hidden")); 
+    if(isCompleteHidden){
+      fetchIncomplete()
+      return;
+    }else{
+      fetchTasks()
+    }
   }
   
   const getSingleTask = async(task) => {

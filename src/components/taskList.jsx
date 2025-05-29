@@ -9,7 +9,7 @@ const TaskList = ({ loading = false, list = [], label = "Tasks"}) => {
     </div>
     <div className = "w-full">
         {
-    list.length > 0 && list.map((task) => <Task task = {task} /> )
+    list.length > 0 && list.map((task) => <Task task = {task} key = {task._id} /> )
   }
     </div>
   </div>

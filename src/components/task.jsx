@@ -59,10 +59,10 @@ const Task = ({ task = null }) => {
     <AnimatePresence>
       {
         isModalOpen && <Modal onClose = {() => setIsModalOpen(false)}>
-          <div onClick = {e => e.stopPropagation()} className = "bg-gradient-to-br from-green-100/50 to-amber-400/20 overflow-hidden rounded-2xl w-11/12 flex flex-col h-[20vh] justify-evenly items-center">
-            <NavLink to = {`/task/${task._id}`}>Edit task</NavLink>
+          <div onClick = {e => e.stopPropagation()} className = "bg-gradient-to-br from-green-100/70  to-amber-400/40 overflow-hidden rounded-2xl w-11/12 flex flex-col h-[20vh] justify-evenly items-center">
+            <NavLink to = {`/task/${task._id}?edit=true`}>Edit task</NavLink>
             <button onClick = {task.pin ? handleUnpin : handlePin}>{task.pin ? "Unpin task" : "Pin Task"}</button>
-            <button onClick = {handleRemove}>Delete task</button>
+            <button className = "text-red-600" onClick = {handleRemove}>Delete task</button>
           </div>
         </Modal>
       }
@@ -71,7 +71,7 @@ const Task = ({ task = null }) => {
       status === "Complete" && <p className=" w-full row-start-1 col-start-1  pointer-events-none items-center flex justify-start p-2 text-green-100 z-10">Completed</p>
     }
     <div className={`grid row-start-1 col-start-1 grid-cols grid-cols-10 p-3 border-b-1 border-b-green-100 bg-gradient-to-r transition-colors duration-200 w-full ${status === "Complete" ? " from-black/80 to-black/30" : "from-transparent to-transparent"}`}>
-      <button onClick={() => setIsModalOpen(prev => !prev)} className="col-start-1">      <BsThreeDotsVertical /></button>
+      <button disabled = {task.status === "Complete"} onClick={() => setIsModalOpen(prev => !prev)} className="col-start-1">      <BsThreeDotsVertical /></button>
 
       <NavLink to = {`/task/${task._id}`} className="col-span-6 col-start-2">
         <p className="truncate">{task.task}</p>

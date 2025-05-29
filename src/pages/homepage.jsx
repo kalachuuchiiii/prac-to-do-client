@@ -9,7 +9,7 @@ import TaskList from '../components/taskList.jsx';
 const Homepage = () => {
   const { tasks, totalTasks, pinnedTasks } = useSelector(state => state.tasks);
   const [loading, setLoading] = useState(false);
-  const [isCompleteHidden, setIsCompleteHidden] = useState(JSON.parse(localStorage.getItem("Complete-Only")));
+  const [isCompleteHidden, setIsCompleteHidden] = useState(JSON.parse(localStorage.getItem("Complete-Hidden")));
   const dispatch = useDispatch();
   const { fetch, fetchIncomplete} = useTaskMethod();
 
@@ -25,7 +25,7 @@ const Homepage = () => {
   const handleChange = () => {
     setIsCompleteHidden(prev => {
       const upd = !prev; 
-      localStorage.setItem("Complete-Only", JSON.stringify(upd));
+      localStorage.setItem("Complete-Hidden", JSON.stringify(upd));
       return upd;
     });
     window.location.reload();
@@ -54,7 +54,7 @@ const Homepage = () => {
   return <div className="w-full flex flex-col justify-center items-center  pb-8">
     <CircleButton disabled ={loading} isOn = {isCompleteHidden} setIsOn = {handleChange} label = "Hide comepleted tasks"/>
     <div className = "flex flex-col gap-3 justify-center items-center w-full">
-          <TaskList list={pinnedTasks} label = "Pinned Tasks"/>
+          <TaskList loading = {loading} list={pinnedTasks} label = "Pinned Tasks"/>
     <TaskList loading = {loading} list={tasks} />
     </div>
   </div>
