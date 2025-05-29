@@ -3,24 +3,39 @@ import { useState, useEffect, useLayoutEffect } from 'react';
 import Task from '../components/task.jsx';
 import { NavLink } from 'react-router-dom';
 import { setTasks, setPinnedTasks } from '../state/taskSlice.js';
-import { fetchAPI } from '../utils/fetch.js';
+import { useTaskMethod } from '../utils/taskController.js';
+import CircleButton from '../components/circleButton.jsx';
 import TaskList from '../components/taskList.jsx';
 const Homepage = () => {
   const { tasks, totalTasks, pinnedTasks } = useSelector(state => state.tasks);
   const [loading, setLoading] = useState(false);
+  const [isCompleteHidden, setIsCompleteHidden] = useState(JSON.parse(localStorage.getItem("Complete-Only")));
   const dispatch = useDispatch();
+  const { fetch, fetchIncomplete} = useTaskMethod();
 
   const getTasks = async () => {
     try {
       setLoading(true);
-      const filter = {
-        filters: JSON.stringify([{ pin: true }, { pin: false }])
-      }
-      const res = await fetchAPI("get", "filter-task", filter);
-      if (res) {
-        dispatch(setPinnedTasks({ pinnedTasks: res.info[0].data }))
-        dispatch(setTasks({ tasks: res.info[1].data }))
-      }
+      await fetch();
+      setLoading(false);
+    } catch (e) {
+    }
+  }
+  
+  const handleChange = () => {
+    setIsCompleteHidden(prev => {
+      const upd = !prev; 
+      localStorage.setItem("Complete-Only", JSON.stringify(upd));
+      return upd;
+    });
+    window.location.reload();
+    
+  }
+  
+  const hideCompletedTasks = async() => {
+    try {
+      setLoading(true);
+      await fetchIncomplete();
       setLoading(false);
     } catch (e) {
 
@@ -28,13 +43,21 @@ const Homepage = () => {
   }
 
   useLayoutEffect(() => {
-    
-      getTasks();
-  }, [])
+    if(loading)return;
+      if(isCompleteHidden){
+        hideCompletedTasks(); 
+        return;
+      }else{
+        getTasks();
+      }
+  }, [isCompleteHidden])
 
-  return <div className="w-full flex flex-col justify-center items-center gap-3 pb-8">
-    <TaskList list={pinnedTasks} label = "Pinned Tasks"/>
+  return <div className="w-full flex flex-col justify-center items-center  pb-8">
+    <CircleButton disabled ={loading} isOn = {isCompleteHidden} setIsOn = {handleChange} label = "Hide comepleted tasks"/>
+    <div className = "flex flex-col gap-3 justify-center items-center w-full">
+          <TaskList list={pinnedTasks} label = "Pinned Tasks"/>
     <TaskList loading = {loading} list={tasks} />
+    </div>
   </div>
 
 }

@@ -8,6 +8,7 @@ import kikiText from '/kikiFont.png'
 import CreateTask from './pages/createTask.jsx';
 import Homepage from './pages/homepage.jsx';
 import SearchResults from './pages/searchQuery.jsx';
+import ViewTask from './pages/viewTask.jsx';
 import { Routes, Route, Outlet, NavLink } from 'react-router-dom';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
          <Route path="/search/" element={<SearchResults/>} />
       </Route>
       <Route path="/create" element={<CreateTask />} />
+      <Route path="/task/:id" element={<ViewTask/>} />
      
     </Routes>
   </div>
