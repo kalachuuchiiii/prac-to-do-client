@@ -62,7 +62,7 @@ const Task = ({ task = null }) => {
           <div onClick = {e => e.stopPropagation()} className = "bg-gradient-to-br from-green-100/70  to-amber-400/40 overflow-hidden rounded-2xl w-11/12 flex flex-col h-[20vh] justify-evenly items-center">
             <NavLink to = {`/task/${task._id}?edit=true`}>Edit task</NavLink>
             <button onClick = {task.pin ? handleUnpin : handlePin}>{task.pin ? "Unpin task" : "Pin Task"}</button>
-            <button className = "text-red-600" onClick = {handleRemove}>Delete task</button>
+            <button className = "text-red-500" onClick = {handleRemove}>Delete task</button>
           </div>
         </Modal>
       }

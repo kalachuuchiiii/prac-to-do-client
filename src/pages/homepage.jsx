@@ -52,7 +52,9 @@ const Homepage = () => {
   }, [isCompleteHidden, dispatch])
 
   return <div className="w-full flex flex-col justify-center items-center  pb-8">
-    <CircleButton disabled ={loading} isOn = {isCompleteHidden} setIsOn = {handleChange} label = "Hide comepleted tasks"/>
+    <div className = "w-full pl-3 ">
+          <CircleButton disabled ={loading} isOn = {isCompleteHidden} setIsOn = {handleChange} label = "Hide comepleted tasks"/>
+    </div>
     <div className = "flex flex-col gap-3 justify-center items-center w-full">
           <TaskList loading = {loading} list={pinnedTasks} label = "Pinned Tasks"/>
     <TaskList loading = {loading} list={tasks} />

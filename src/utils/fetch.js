@@ -12,14 +12,14 @@ export const fetchAPI = async (type = "get", url = "", payload = {}) => {
       const info = await axios[type](apiUrl, {
         params: payload
       });
-      console.log(url, info.data)
+
       return info.data;
     }
     const info = await axios[type](apiUrl, payload);
-    console.log(url, info.data)
+    
     return info.data;
   } catch (e) {
-    console.log(url, e)
+    
     throw new Error(`${e.message}`);
   }
 }
